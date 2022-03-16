@@ -1,6 +1,8 @@
-# Projeto de login automático em site
+# Projeto de automatização de funções em site
 
 **Projeto em desenvolvimento**
+
+**Site:** https://www.bancodeseries.com.br/.
 
 ## 1. Pré-Requisitos:
 O projeto foi realizado utilizando o navegador Google Chrome, mas pode ser aplicado em outros navegadores após ajustes no driver utilizado e funções.
