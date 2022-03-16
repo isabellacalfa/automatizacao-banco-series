@@ -24,10 +24,10 @@ def config(filename, section):
     return db
 
 ## Variáveis Globais:
-site='https://sociotorcedor.com.br/'
+site='https://www.bancodeseries.com.br/'
 params=config('auth.ini','login')
 user=params['user']
-password=params['password']
+passw=params['password']
 
 ## Abetura do navegador:
 print(f'Iniciando o processo de abertura do navegador...')
@@ -37,14 +37,22 @@ browser = webdriver.Chrome(options=options) # Tratamento de erro
 print(f'Navegador aberto.')
 
 ## Acesso ao site de login:
-browser.get(site) 
 print(f'Iniciando processo de abertura do site {site}...')
+browser.get(site) 
 print(f'{site} acessado com sucesso.')
-time.sleep(10) 
 
 ## Login:
-browser.find_element_by_name("mat-input-2/mat-input-element mat-form-field-autofill-control ng-tns-c60-8 ng-pristine ng-valid cdk-text-field-autofill-monitored ng-touched/name of username").send_keys(user)
-time.sleep(30)
+print(f'Definição dos parâmetros de login...')
+username = browser.find_element_by_name('login')
+username.send_keys(user)
+print(f'Usuário definido. (1/3)')
+
+print(f'Senha definida. (2/3)')
+
+print(f'Botão Logar-se definido. (3/3)')
+#login_attempt.submit()
+print(f'Login realizado com sucesso.')
+time.sleep(10)
 #username = browser.find_element_by_id("matinput")
 #password = browser.find_element_by_id("password")
 #username.send_keys(user)
