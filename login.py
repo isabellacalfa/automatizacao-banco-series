@@ -32,7 +32,7 @@ passw=params['password']
 #Pasta com o executável do chromedriver.exe:
 executable_path=params['executable_path'] 
 #Pasta com o adblock:
-path_to_extension = r'C:\Users\Isabella Calfa\AppData\Local\Google\Chrome\User Data\Default\Extensions\gighmmpiobklfepjocnamgkkbiglidom\4.44.0_0'
+path_to_extension=params['path_to_extension']
 
 ## Abertura do navegador:
 inicio=datetime.now()
@@ -64,19 +64,20 @@ try:
 except:
     print(f'ERRO! Botão de login não pressionado.')    
 print(f'Definição dos parâmetros de login...')
+### Pausa para atualização dos dados:
+time.sleep(5)
 ### Definição de usuário:
-print("Elemento de login está visível? " + str(browser.find_element_by_name('login').is_displayed()))
 browser.find_element_by_name('login').send_keys(user)
 ### Definição de senha:
-#browser.find_element_by_name('pw').send_keys(passw)
+browser.find_element_by_name('pw').send_keys(passw)
 ### Selecionando o botão de login:
-#try:
-#    browser.find_element_by_css_selector('btn btn-primary').click()
-#    inicio=datetime.now()
-#    print(f'Login realizado com sucesso. Tempo de Execução: {fim-inicio}.')
-#except:
-#    print(f'ERRO! Botão de login não identificado.')
-#time.sleep(10)
+try:
+    browser.find_element_by_xpath("//button[text()='Logar-se']").click()
+    fim=datetime.now()
+    print(f'Login efetuado com sucesso. Tempo de Execução: {fim-inicio}.')
+except:
+    print(f'ERRO! Botão "Logar-se" não pressionado.')  
 
+time.sleep(15)
 ## Fechamento do navegador:
-x=input('Continuar:')
+browser.close()
