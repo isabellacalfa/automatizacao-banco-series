@@ -29,13 +29,23 @@ site='https://www.bancodeseries.com.br/'
 params=config('auth.ini','login')
 user=params['user']
 passw=params['password']
+#Pasta com o executável do chromedriver.exe:
+executable_path=params['executable_path'] 
+#Pasta com o adblock:
+path_to_extension = r'C:\Users\Isabella Calfa\AppData\Local\Google\Chrome\User Data\Default\Extensions\gighmmpiobklfepjocnamgkkbiglidom\4.44.0_0'
 
-## Abetura do navegador:
+## Abertura do navegador:
 inicio=datetime.now()
 print(f'Iniciando o processo de abertura do navegador...')
-options = webdriver.ChromeOptions() # Tratamento de erro
-options.add_experimental_option('excludeSwitches', ['enable-logging']) # Tratamento de erro
-browser = webdriver.Chrome(options=options) # Tratamento de erro
+### Tratamento de Erros:
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+options.add_argument('load-extension=' + path_to_extension)
+### Acesso ao navegador:
+try:
+    browser = webdriver.Chrome(options=options)
+except:
+    browser = webdriver.Chrome(options=options,executable_path=executable_path)
 fim=datetime.now()
 print(f'Navegador aberto. Tempo de Execução: {fim-inicio}.')
 
@@ -48,16 +58,25 @@ print(f'{site} acessado com sucesso. Tempo de Execução: {fim-inicio}.')
 
 ## Login:
 inicio=datetime.now()
+### Abertura da tela de login:
+try:
+    browser.find_element_by_link_text('Login').click()
+except:
+    print(f'ERRO! Botão de login não pressionado.')    
 print(f'Definição dos parâmetros de login...')
-username = browser.find_element_by_name('login')
-username.send_keys(user)
-print(f'Usuário definido. Ação 1/3. Tempo de Execução: {fim-inicio}.')
-print(f'Senha definida. (2/3)')
-print(f'Botão Logar-se definido. (3/3)')
-#login_attempt.submit()
-print(f'Login realizado com sucesso.')
-time.sleep(10)
+### Definição de usuário:
+print("Elemento de login está visível? " + str(browser.find_element_by_name('login').is_displayed()))
+browser.find_element_by_name('login').send_keys(user)
+### Definição de senha:
+#browser.find_element_by_name('pw').send_keys(passw)
+### Selecionando o botão de login:
+#try:
+#    browser.find_element_by_css_selector('btn btn-primary').click()
+#    inicio=datetime.now()
+#    print(f'Login realizado com sucesso. Tempo de Execução: {fim-inicio}.')
+#except:
+#    print(f'ERRO! Botão de login não identificado.')
+#time.sleep(10)
 
 ## Fechamento do navegador:
-print('Navegador fechado.')
-#browser.close()
+x=input('Continuar:')
