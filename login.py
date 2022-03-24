@@ -49,7 +49,7 @@ except:
 fim=datetime.now()
 print(f'Navegador aberto. Tempo de Execução: {fim-inicio}.')
 
-## Acesso ao site de login:
+## Acesso ao site:
 inicio=datetime.now()
 print(f'Iniciando processo de abertura do site {site}...')
 browser.get(site) 
